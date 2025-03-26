@@ -41,9 +41,16 @@ const nextConfig = {
     return headers
   },
   images: {
-    domains: ['localhost', process.env.NEXT_PUBLIC_SERVER_URL]
-      .filter(Boolean)
-      .map((url) => url.replace(/https?:\/\//, '')),
+    remotePatterns: [
+      {
+        hostname: 'localhost',
+        protocol: 'http',
+      },
+      {
+        hostname: process.env.NEXT_PUBLIC_SERVER_URL?.replace(/https?:\/\//, ''),
+        protocol: 'http',
+      },
+    ].filter(Boolean),
   },
   reactStrictMode: true,
   redirects,
